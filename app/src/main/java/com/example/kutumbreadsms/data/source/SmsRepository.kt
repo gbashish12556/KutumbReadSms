@@ -4,5 +4,5 @@ import com.example.kutumbreadsms.data.SectionData
 
 interface SmsRepository {
 
-    fun getSms(): List<SectionData>
+    suspend fun getSms(forceUpdate:Boolean): List<SectionData>
 }

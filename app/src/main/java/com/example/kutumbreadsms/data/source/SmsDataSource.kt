@@ -5,6 +5,7 @@ import com.example.kutumbreadsms.data.SectionData
 
 interface SmsDataSource {
 
-    fun getSms(): List<SectionData>
-
+    suspend fun getSms(): List<SectionData>
+    suspend fun deleteAllSms()
+    suspend fun insertSms(smsList:List<SectionData>)
 }
