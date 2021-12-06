@@ -45,11 +45,11 @@ class MainViewModel(
             }
         }
         smsRepository.getSms().switchMap {
-            filterTasks(it)
+            filterSms(it)
         }
     }
 
-    private fun filterTasks(tasksResult: List<SectionData>): LiveData<List<SectionData>> {
+    private fun filterSms(tasksResult: List<SectionData>): LiveData<List<SectionData>> {
         val result = MutableLiveData<List<SectionData>>()
         result.postValue(tasksResult)
         return result
