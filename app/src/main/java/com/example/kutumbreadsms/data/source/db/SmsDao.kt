@@ -15,4 +15,7 @@ interface SmsDao {
     @Query("SELECT * FROM section_data")
     fun allPosts(): List<SectionData>
 
+    @Query("DELETE FROM section_data")
+    suspend fun deleteSms()
+
 }

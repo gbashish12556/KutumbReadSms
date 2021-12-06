@@ -22,5 +22,5 @@ abstract class SmsLocalDb : RoomDatabase() {
         }
     }
 
-    abstract fun posts(): SmsDao
+    abstract fun smsDao(): SmsDao
 }
