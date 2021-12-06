@@ -40,8 +40,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
-    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleExtensVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleExtensVersion"
 
     // App dependencies
     implementation "androidx.cardview:cardview:$cardVersion"
@@ -50,6 +48,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleExtensVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleExtensVersion"
 
     // Architecture Components
     implementation "androidx.room:room-runtime:$roomVersion"
