@@ -15,12 +15,10 @@
  */
 package com.example.kutumbreadsms.ui
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
@@ -31,7 +29,7 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel for the task list screen.
  */
-class TasksViewModel(
+class MainViewModel(
     private val smsRepository: SmsRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
