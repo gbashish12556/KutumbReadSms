@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kutumbreadsms.data.SectionData
 import com.example.kutumbreadsms.databinding.SectionItemBinding
-
-
+import timber.log.Timber
 
 
 class SectionAdapter(private val viewModel: MainViewModel) :
@@ -16,7 +15,6 @@ class SectionAdapter(private val viewModel: MainViewModel) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-
         holder.bind(viewModel, item)
     }
 
@@ -27,12 +25,25 @@ class SectionAdapter(private val viewModel: MainViewModel) :
 
     class ViewHolder private constructor(val binding: SectionItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private lateinit var smsAdapter: SmsAdapter
 
         fun bind(viewModel: MainViewModel, item: SectionData) {
 
             binding.viewmodel = viewModel
             binding.section = item
+            setupListAdapter()
             binding.executePendingBindings()
+        }
+
+        private fun setupListAdapter() {
+            val viewModel = binding.viewmodel
+            if (viewModel != null) {
+                smsAdapter = SmsAdapter(viewModel)
+                binding.smsRecyclerView.adapter = smsAdapter
+            } else {
+                Timber.w("ViewModel not initialized when attempting to set up adapter.")
+            }
+            viewModel!!.refreshList()
         }
 
         companion object {

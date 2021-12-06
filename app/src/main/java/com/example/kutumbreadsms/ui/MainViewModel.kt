@@ -35,6 +35,12 @@ class MainViewModel(
 
     private val _forceUpdate = MutableLiveData<Boolean>(false)
 
+    private val _dataLoading = MutableLiveData<Boolean>()
+    val dataLoading: LiveData<Boolean> = _dataLoading
+
+    private val _isDataLoadingError = MutableLiveData<Boolean>(false)
+    val isDataLoadingError = _isDataLoadingError
+
     private val _items: LiveData<List<SectionData>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
             _dataLoading.value = true
@@ -48,19 +54,18 @@ class MainViewModel(
         }
     }
 
+    val items: LiveData<List<SectionData>> = _items
+
     private fun filterSms(tasksResult: List<SectionData>): LiveData<List<SectionData>> {
         val result = MutableLiveData<List<SectionData>>()
         result.postValue(tasksResult)
         return result
     }
 
-    val items: LiveData<List<SectionData>> = _items
+    fun refreshList(){
+        _forceUpdate.value  = true
+    }
 
-    private val _dataLoading = MutableLiveData<Boolean>()
-    val dataLoading: LiveData<Boolean> = _dataLoading
-
-    private val _isDataLoadingError = MutableLiveData<Boolean>(false)
-    val isDataLoadingError = _isDataLoadingError
 
 }
 

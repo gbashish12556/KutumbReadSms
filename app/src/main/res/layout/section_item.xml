@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="10dp"
-            android:text="Title"
+            android:text="@{section.sectionName}"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -33,6 +33,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/smsRecyclerView"
             app:layout_constraintTop_toBottomOf="@id/headerTitle"
+            app:smsItems="@{section.data}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

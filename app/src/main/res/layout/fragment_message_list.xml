@@ -2,7 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-     
+
      <data>
 
           <import type="android.view.View" />
@@ -25,6 +25,7 @@
               app:sectionItems="@{viewmodel.items}" />
 
           <ProgressBar
+              android:id="@+id/progressBar"
               android:layout_width="100dp"
               android:layout_height="100dp"
               app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +35,7 @@
               android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}" />
 
           <TextView
+              android:id="@+id/erroTextView"
               android:layout_width="100dp"
               android:layout_height="100dp"
               android:text="No Match"
