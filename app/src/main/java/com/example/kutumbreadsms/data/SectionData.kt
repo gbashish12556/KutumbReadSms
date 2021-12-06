@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 
-@Entity(tableName = "section_data")
+@Entity(tableName = "section_table")
 data class SectionData(
     @PrimaryKey
     val id: Int,

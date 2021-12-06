@@ -13,10 +13,10 @@ interface SmsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(posts: List<SectionData>)
 
-    @Query("SELECT * FROM section_data")
+    @Query("SELECT * FROM section_table")
     fun allPosts(): LiveData<List<SectionData>>
 
-    @Query("DELETE FROM section_data")
+    @Query("DELETE FROM section_table")
     suspend fun deleteSms()
 
 }

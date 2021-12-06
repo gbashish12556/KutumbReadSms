@@ -59,6 +59,9 @@ class MainViewModel(
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
+    private val _isDataLoadingError = MutableLiveData<Boolean>(false)
+    val isDataLoadingError = _isDataLoadingError
+
 }
 
 
