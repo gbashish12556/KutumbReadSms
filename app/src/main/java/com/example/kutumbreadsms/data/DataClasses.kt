@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey
 data class SectionData(
     @PrimaryKey
     val id: Int,
-    val sectionName: String,
-    val data: List<SmsData>
+    val sectionName: String?,
+    val data: MutableList<SmsData>
 )
 
 
