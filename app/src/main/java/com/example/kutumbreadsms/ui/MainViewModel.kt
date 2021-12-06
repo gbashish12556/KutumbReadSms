@@ -30,8 +30,7 @@ import kotlinx.coroutines.launch
  * ViewModel for the task list screen.
  */
 class MainViewModel(
-    private val smsRepository: SmsRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val smsRepository: SmsRepository
 ) : ViewModel() {
 
     private val _forceUpdate = MutableLiveData<Boolean>(false)
