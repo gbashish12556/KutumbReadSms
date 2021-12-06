@@ -1,5 +1,6 @@
 package com.example.kutumbreadsms.data.source.db
 
+import androidx.lifecycle.LiveData
 import com.example.kutumbreadsms.data.SectionData
 import com.example.navigithubpr.data.source.SmsLocalDataSource
 import com.example.truecreditslist.db.SmsDao
@@ -11,7 +12,7 @@ class RoomDataSource internal constructor(
     private val smsDao: SmsDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO ) : SmsLocalDataSource{
 
-    override suspend fun getSms(): List<SectionData> {
+    override fun getSms(): LiveData<List<SectionData>> {
         return smsDao.allPosts()
     }
 

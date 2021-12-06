@@ -1,5 +1,6 @@
 package com.example.truecreditslist.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,7 +14,7 @@ interface SmsDao {
     suspend fun insertAll(posts: List<SectionData>)
 
     @Query("SELECT * FROM section_data")
-    fun allPosts(): List<SectionData>
+    fun allPosts(): LiveData<List<SectionData>>
 
     @Query("DELETE FROM section_data")
     suspend fun deleteSms()

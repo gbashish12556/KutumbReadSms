@@ -1,5 +1,6 @@
 package com.example.kutumbreadsms.data.source
 
+import androidx.lifecycle.LiveData
 import com.example.kutumbreadsms.data.SectionData
 import com.example.navigithubpr.data.source.SmsLocalDataSource
 import com.example.navigithubpr.data.source.SmsRepository
@@ -24,15 +25,13 @@ class DefaultSmsRepository(
         }
     }
 
-    override suspend fun getSms(forceUpdate: Boolean): List<SectionData> {
-        if (forceUpdate) {
-            try {
-                updateTasksFromRemoteDataSource()
-            } catch (ex: Exception) {
-                return emptyList()
-            }
-        }
+
+    override fun getSms(): LiveData<List<SectionData>> {
         return smsLocalDataSource.getSms()
+    }
+
+    override suspend fun refreshTask() {
+        updateTasksFromRemoteDataSource()
     }
 
 }
