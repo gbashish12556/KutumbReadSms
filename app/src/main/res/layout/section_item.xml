@@ -8,15 +8,17 @@
           name="section"
           type="com.example.kutumbreadsms.data.SectionData" />
 
+       <variable
+           name="context"
+           type="com.example.kutumbreadsms.ui.MainActivity" />
+
       <variable
           name="viewmodel"
           type="com.example.kutumbreadsms.ui.MainViewModel" />
    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/light_grey"
         android:layout_height="wrap_content">
 

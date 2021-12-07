@@ -1,8 +1,10 @@
 package com.example.kutumbreadsms.ui
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kutumbreadsms.data.SectionData
@@ -10,12 +12,12 @@ import com.example.kutumbreadsms.databinding.SectionItemBinding
 import timber.log.Timber
 
 
-class SectionAdapter(private val viewModel: MainViewModel) :
+class SectionAdapter(private val viewModel: MainViewModel,private val mainActivity: MainActivity) :
     ListAdapter<SectionData, SectionAdapter.ViewHolder>(TaskDiffCallback2()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(viewModel, item)
+        holder.bind(viewModel, item, mainActivity)
     }
 
 
@@ -27,23 +29,21 @@ class SectionAdapter(private val viewModel: MainViewModel) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var smsAdapter: SmsAdapter
 
-        fun bind(viewModel: MainViewModel, item: SectionData) {
+        fun bind(viewModel: MainViewModel, item: SectionData, mainActivity: MainActivity) {
 
             binding.viewmodel = viewModel
             binding.section = item
+            binding.context = mainActivity
             setupListAdapter()
             binding.executePendingBindings()
         }
 
         private fun setupListAdapter() {
-            val viewModel = binding.viewmodel
-            if (viewModel != null) {
-                smsAdapter = SmsAdapter(viewModel)
+                smsAdapter = SmsAdapter(binding.viewmodel!!)
+                val llm = LinearLayoutManager(binding.context)
+                llm.orientation = LinearLayoutManager.VERTICAL
+                binding.smsRecyclerView.setLayoutManager(llm)
                 binding.smsRecyclerView.adapter = smsAdapter
-            } else {
-                Timber.w("ViewModel not initialized when attempting to set up adapter.")
-            }
-            viewModel!!.refreshList()
         }
 
         companion object {

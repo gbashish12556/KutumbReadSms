@@ -1,5 +1,6 @@
 package com.example.kutumbreadsms.util
 
+import android.util.Log
 import com.example.kutumbreadsms.data.SectionData
 
 class Util {
@@ -20,16 +21,17 @@ class Util {
                 2L->1
                 3L->2
                 in 4..6->3
-                in 7..12->4
                 else->4
             }
 
 
         fun intialiseSectionData():MutableList<SectionData>{
             val mutableList :MutableList<SectionData> = mutableListOf()
-            for (i in 1..5) {
-                mutableList.add(SectionData(0, getHeaderTitleMap()[i], mutableListOf()))
+            val titleMap:HashMap<Int, String> = getHeaderTitleMap()
+            for (i in 0..4) {
+                mutableList.add(SectionData(0, titleMap[i], mutableListOf()))
             }
+            Log.d("SectionData3",mutableList[4].sectionName.toString())
             return mutableList
         }
 
