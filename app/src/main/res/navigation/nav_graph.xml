@@ -10,6 +10,10 @@
         android:name="com.example.kutumbreadsms.ui.MessageListFragment"
         android:label="fragment_message_list"
         tools:layout="@layout/fragment_message_list" >
+        <argument
+            android:name="smsData"
+            app:argType="com.example.kutumbreadsms.data.SmsData"/>
+
         <action
             android:id="@+id/action_messageListFragment2_to_mesageDetailFragment2"
             app:destination="@id/mesageDetailFragment2" />
