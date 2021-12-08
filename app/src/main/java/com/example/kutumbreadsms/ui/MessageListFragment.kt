@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.kutumbreadsms.R
 import com.example.kutumbreadsms.databinding.FragmentMessageListBinding
 import com.example.kutumbreadsms.util.getViewModelFactory
@@ -47,8 +48,12 @@ class MessageListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            checkPermission()
             setupListAdapter()
+            viewModel.smsData.observe(viewLifecycleOwner, Observer { smsData->
+                findNavController().navigate(R.id.action_messageListFragment2_to_mesageDetailFragment2, Bundle().apply {
+                    putSerializable("smsData", smsData)
+                })
+            })
     }
     private fun setupListAdapter() {
         val viewModel = viewDataBinding.viewmodel
@@ -61,7 +66,9 @@ class MessageListFragment : Fragment() {
         } else {
             Timber.w("ViewModel not initialized when attempting to set up adapter.")
         }
-        viewModel!!.refreshList()
+        if (checkPermission()) {
+            viewModel!!.refreshList()
+        }
     }
 
     fun checkPermission(): Boolean {

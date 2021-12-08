@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.example.kutumbreadsms.data.SectionData
+import com.example.kutumbreadsms.data.SmsData
 import com.example.navigithubpr.data.source.SmsRepository
 import kotlinx.coroutines.launch
 
@@ -35,9 +36,12 @@ class MainViewModel(
 ) : ViewModel() {
 
     private val _forceUpdate = MutableLiveData<Boolean>(false)
-    private val _dataLoading = MutableLiveData<Boolean>(false)
 
+    private val _dataLoading = MutableLiveData<Boolean>(false)
     val dataLoading: LiveData<Boolean> = _dataLoading
+
+    private val _smsData = MutableLiveData<SmsData>()
+    val smsData: LiveData<SmsData> = _smsData
 
     private val _items: LiveData<List<SectionData>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
@@ -62,6 +66,11 @@ class MainViewModel(
 
     fun refreshList(){
         _forceUpdate.value  = true
+    }
+
+    fun goToDetailFrag(smsData: SmsData):Boolean{
+        _smsData.value = smsData
+        return true
     }
 
 
