@@ -18,10 +18,17 @@ class RoomDataSource internal constructor(
     }
 
     override suspend fun deleteAllSms() = withContext(ioDispatcher){
-        smsDao.deleteSms()
+        Log.d("SectionData","deleteSms")
+        smsDao.deleteAllSms()
     }
 
     override suspend fun insertAllSms(smsList: List<SectionData>) = withContext(ioDispatcher){
+        Log.d("SectionData","insertSms")
+        smsDao.insertAll(smsList)
+    }
+
+    override suspend fun deleteAndInsert(smsList: List<SectionData>) {
+        smsDao.deleteAllSms()
         smsDao.insertAll(smsList)
     }
 

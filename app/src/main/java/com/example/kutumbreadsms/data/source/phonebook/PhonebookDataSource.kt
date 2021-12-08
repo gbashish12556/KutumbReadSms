@@ -15,6 +15,7 @@ class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
 
     fun createSectionData(): List<SectionData> {
         try {
+            sectionData.clear()
             if (cursor!!.moveToFirst()) {
                 val cursorCount = cursor!!.count
                 for (i in 0..cursorCount - 1) {

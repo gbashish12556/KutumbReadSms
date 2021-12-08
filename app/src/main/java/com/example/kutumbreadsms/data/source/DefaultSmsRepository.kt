@@ -18,10 +18,9 @@ class DefaultSmsRepository(
 
     private suspend fun updateTasksFromRemoteDataSource() {
         withContext(ioDispatcher) {
-            val remoteTasks = smsRemoteDataSource.getSms()
-            if (remoteTasks.size > 0) {
-                smsLocalDataSource.deleteAllSms()
-                smsLocalDataSource.insertAllSms(remoteTasks)
+            val smsList = smsRemoteDataSource.getSms()
+            if (smsList.size > 0) {
+                smsLocalDataSource.deleteAndInsert(smsList)
             }
         }
     }

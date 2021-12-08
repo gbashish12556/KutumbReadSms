@@ -17,6 +17,6 @@ interface SmsDao {
     fun allPosts(): LiveData<List<SectionData>>
 
     @Query("DELETE FROM section_table")
-    suspend fun deleteSms()
+    suspend fun deleteAllSms()
 
 }
