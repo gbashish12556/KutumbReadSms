@@ -25,8 +25,6 @@ import com.example.kutumbreadsms.ViewModelFactory
 
 class MessageListFragment : Fragment() {
 
-    private val MY_PERMISSIONS_REQUEST_READ_SMS  =10
-
     lateinit var viewModel:MainViewModel
 
     private lateinit var viewDataBinding: FragmentMessageListBinding
@@ -57,8 +55,8 @@ class MessageListFragment : Fragment() {
                     findNavController().navigate(R.id.action_messageListFragment_to_mesageDetailFragment)
                 }
             })
-        refreshList()
     }
+
     private fun setupListAdapter() {
         val viewModel = viewDataBinding.viewmodel
         if (viewModel != null) {
@@ -69,45 +67,6 @@ class MessageListFragment : Fragment() {
             viewDataBinding.recyclerView.adapter = listAdapter
         } else {
             Timber.w("ViewModel not initialized when attempting to set up adapter.")
-        }
-    }
-
-    private fun refreshList(){
-        if (checkPermission()) {
-            viewModel!!.refreshList()
-        }
-    }
-
-    fun checkPermission(): Boolean {
-        val permission1 = Manifest.permission.RECEIVE_SMS
-        val permission2 = Manifest.permission.READ_SMS
-        activity?.let {
-            val grant1: Int? = ContextCompat.checkSelfPermission(it, permission1)
-            val grant2: Int? = ContextCompat.checkSelfPermission(it, permission2)
-            if (grant1 != PackageManager.PERMISSION_GRANTED || grant2 != PackageManager.PERMISSION_GRANTED) {
-                val permission_list = arrayOfNulls<String>(2)
-                permission_list[0] = permission1
-                permission_list[1] = permission2
-                ActivityCompat.requestPermissions(
-                    it,
-                    permission_list,
-                    MY_PERMISSIONS_REQUEST_READ_SMS
-                )
-            } else {
-                return true
-            }
-        }
-        return false
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == MY_PERMISSIONS_REQUEST_READ_SMS){
-            refreshList()
         }
     }
 

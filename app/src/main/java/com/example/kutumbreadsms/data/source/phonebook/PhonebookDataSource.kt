@@ -1,6 +1,7 @@
 package com.example.kutumbreadsms.data.source.phonebook
 
 import android.database.Cursor
+import android.util.Log
 import com.example.kutumbreadsms.data.SectionData
 import com.example.kutumbreadsms.data.SmsData
 import com.example.kutumbreadsms.data.source.SmsRemoteDataSource
@@ -8,14 +9,13 @@ import com.example.kutumbreadsms.util.Util
 import java.util.*
 
 class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
-    val sectionData :MutableList<SectionData> = Util.intialiseSectionData()
     override suspend fun getSms(): List<SectionData> {
         return createSectionData()
     }
 
     fun createSectionData(): List<SectionData> {
         try {
-            sectionData.clear()
+            val sectionData :MutableList<SectionData> = Util.intialiseSectionData()
             if (cursor!!.moveToFirst()) {
                 val cursorCount = cursor!!.count
                 for (i in 0..cursorCount - 1) {
@@ -29,6 +29,7 @@ class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
                     if (!sectionData[Util.getIndex(timeStampDifference)].hasData) {
                         sectionData[Util.getIndex(timeStampDifference)].hasData = true
                     }
+                    Log.d("message: ",cursor.getString(cursor.getColumnIndexOrThrow("body")))
                     sectionData[Util.getIndex(timeStampDifference)].data.add(
                         SmsData(
                             id = cursor.getString(cursor.getColumnIndexOrThrow("_id")).toInt(),

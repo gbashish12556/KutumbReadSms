@@ -50,16 +50,17 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = getViewModelFactory(savedInstanceState)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        viewModel.refreshList()
         if(intent != null && intent.extras != null){
             var smsData:SmsData = intent.extras!!.getSerializable("smsData") as SmsData
             viewModel.setSmsData(smsData)
             navController.navigate(R.id.action_messageListFragment_to_mesageDetailFragment  )
         }
-        viewModel = getViewModelFactory(savedInstanceState)
     }
 
 
@@ -74,6 +75,45 @@ class MainActivity : FragmentActivity() {
                 NotificationManager::class.java
             )
         notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun refreshList(){
+        if (checkPermission()) {
+            viewModel!!.refreshList()
+        }
+    }
+
+    fun checkPermission(): Boolean {
+        val permission1 = Manifest.permission.RECEIVE_SMS
+        val permission2 = Manifest.permission.READ_SMS
+        this?.let {
+            val grant1: Int? = ContextCompat.checkSelfPermission(it, permission1)
+            val grant2: Int? = ContextCompat.checkSelfPermission(it, permission2)
+            if (grant1 != PackageManager.PERMISSION_GRANTED || grant2 != PackageManager.PERMISSION_GRANTED) {
+                val permission_list = arrayOfNulls<String>(2)
+                permission_list[0] = permission1
+                permission_list[1] = permission2
+                ActivityCompat.requestPermissions(
+                    it,
+                    permission_list,
+                    MY_PERMISSIONS_REQUEST_READ_SMS
+                )
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode == MY_PERMISSIONS_REQUEST_READ_SMS){
+            refreshList()
+        }
     }
 
 }

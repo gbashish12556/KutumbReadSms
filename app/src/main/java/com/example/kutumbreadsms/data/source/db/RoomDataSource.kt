@@ -28,6 +28,7 @@ class RoomDataSource internal constructor(
     }
 
     override suspend fun deleteAndInsert(smsList: List<SectionData>) {
+        Log.d("SectionData","3")
         smsDao.deleteAllSms()
         smsDao.insertAll(smsList)
     }
