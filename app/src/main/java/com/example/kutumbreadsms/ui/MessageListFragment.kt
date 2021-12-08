@@ -12,32 +12,33 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kutumbreadsms.R
 import com.example.kutumbreadsms.databinding.FragmentMessageListBinding
 import com.example.kutumbreadsms.util.getViewModelFactory
 import timber.log.Timber
 import androidx.recyclerview.widget.LinearLayoutManager
-
-
-
+import com.example.kutumbreadsms.SmsApplication
+import com.example.kutumbreadsms.ViewModelFactory
 
 
 class MessageListFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel> { getViewModelFactory() }
+    lateinit var viewModel:MainViewModel
 
     private lateinit var viewDataBinding: FragmentMessageListBinding
 
     private lateinit var listAdapter: SectionAdapter
-
-    private val MY_PERMISSIONS_REQUEST_READ_SMS  =10
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_message_list, container, false)
+
+        viewModel = activity?.let { getViewModelFactory(it,savedInstanceState) }!!
+
         viewDataBinding = FragmentMessageListBinding.bind(root).apply {
             viewmodel = viewModel
         }
@@ -50,9 +51,9 @@ class MessageListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
             setupListAdapter()
             viewModel.smsData.observe(viewLifecycleOwner, Observer { smsData->
-                findNavController().navigate(R.id.action_messageListFragment2_to_mesageDetailFragment2, Bundle().apply {
-                    putSerializable("smsData", smsData)
-                })
+                if(smsData != null) {
+                    findNavController().navigate(R.id.action_messageListFragment_to_mesageDetailFragment)
+                }
             })
     }
     private fun setupListAdapter() {
@@ -66,51 +67,8 @@ class MessageListFragment : Fragment() {
         } else {
             Timber.w("ViewModel not initialized when attempting to set up adapter.")
         }
-        if (checkPermission()) {
-            viewModel!!.refreshList()
-        }
     }
 
-    fun checkPermission(): Boolean {
-        val permission1 = Manifest.permission.RECEIVE_SMS
-        val permission2 = Manifest.permission.READ_SMS
-        val grant1: Int? = activity?.let { ContextCompat.checkSelfPermission(it, permission1) }
-        val grant2: Int? = activity?.let { ContextCompat.checkSelfPermission(it, permission2) }
-        if (grant1 != PackageManager.PERMISSION_GRANTED || grant2 != PackageManager.PERMISSION_GRANTED) {
-            val permission_list = arrayOfNulls<String>(2)
-            permission_list[0] = permission1
-            permission_list[1] = permission2
-            activity?.let {
-                ActivityCompat.requestPermissions(
-                    it,
-                    permission_list,
-                    MY_PERMISSIONS_REQUEST_READ_SMS
-                )
-            }
-        } else {
-            return true
-        }
-        return false
-    }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            MY_PERMISSIONS_REQUEST_READ_SMS -> {
 
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.size > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                ) {
-                    setupListAdapter()
-                } else {
-                    checkPermission()
-                }
-                return
-            }
-        }
-    }
 }

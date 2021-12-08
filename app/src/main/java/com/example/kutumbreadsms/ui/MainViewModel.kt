@@ -40,8 +40,8 @@ class MainViewModel(
     private val _dataLoading = MutableLiveData<Boolean>(false)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    private val _smsData = MutableLiveData<SmsData>()
-    val smsData: LiveData<SmsData> = _smsData
+    private val _smsData = MutableLiveData<SmsData?>()
+    val smsData: LiveData<SmsData?> = _smsData
 
     private val _items: LiveData<List<SectionData>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
@@ -68,9 +68,13 @@ class MainViewModel(
         _forceUpdate.value  = true
     }
 
-    fun goToDetailFrag(smsData: SmsData):Boolean{
+    fun setSmsData(smsData: SmsData?){
         _smsData.value = smsData
-        return true
+    }
+
+    fun goToDetailFrag(smsData: SmsData?){
+        Log.d("smsData1",smsData.toString())
+        _smsData.value = smsData
     }
 
 

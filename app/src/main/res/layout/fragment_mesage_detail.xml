@@ -1,51 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.MesageDetailFragment">
 
-    <TextView
-        android:id="@+id/senderTitle"
-        android:text="Sender : "
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/sender"
-        app:layout_constraintStart_toEndOf="@id/senderTitle"
-        app:layout_constraintTop_toTopOf="@id/senderTitle"
-        app:layout_constraintBottom_toBottomOf="@id/senderTitle"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+     <data>
 
-    <TextView
-        android:id="@+id/msessageTitle"
-        android:text="Message : "
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/senderTitle"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+          <import type="android.view.View" />
 
-    <TextView
-        android:id="@+id/msessage"
-        app:layout_constraintStart_toEndOf="@id/msessageTitle"
-        app:layout_constraintTop_toTopOf="@id/msessageTitle"
-        app:layout_constraintBottom_toBottomOf="@id/msessageTitle"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+          <variable
+              name="viewmodel"
+              type="com.example.kutumbreadsms.ui.MainViewModel" />
+
+     </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/senderTitle"
+            android:text="Sender : "
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/sender"
+            app:layout_constraintStart_toEndOf="@id/senderTitle"
+            app:layout_constraintTop_toTopOf="@id/senderTitle"
+            app:layout_constraintBottom_toBottomOf="@id/senderTitle"
+            android:layout_marginLeft="10dp"
+            android:text="@{viewmodel.smsData.sender}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/msessageTitle"
+            android:text="Message : "
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/senderTitle"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/msessage"
+            app:layout_constraintStart_toEndOf="@id/msessageTitle"
+            app:layout_constraintTop_toTopOf="@id/msessageTitle"
+            app:layout_constraintBottom_toBottomOf="@id/msessageTitle"
+            android:layout_marginLeft="10dp"
+            android:text="@{viewmodel.smsData.message}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

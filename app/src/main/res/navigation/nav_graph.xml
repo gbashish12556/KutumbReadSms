@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/messageListFragment2">
+    app:startDestination="@id/messageListFragment">
 
     <fragment
-        android:id="@+id/messageListFragment2"
+        android:id="@+id/messageListFragment"
         android:name="com.example.kutumbreadsms.ui.MessageListFragment"
         android:label="fragment_message_list"
         tools:layout="@layout/fragment_message_list" >
@@ -15,12 +16,20 @@
             app:argType="com.example.kutumbreadsms.data.SmsData"/>
 
         <action
-            android:id="@+id/action_messageListFragment2_to_mesageDetailFragment2"
-            app:destination="@id/mesageDetailFragment2" />
+            android:id="@+id/action_messageListFragment_to_mesageDetailFragment"
+            app:destination="@id/mesageDetailFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/mesageDetailFragment2"
+        android:id="@+id/mesageDetailFragment"
         android:name="com.example.kutumbreadsms.ui.MesageDetailFragment"
         android:label="fragment_mesage_detail"
-        tools:layout="@layout/fragment_mesage_detail" />
+        tools:layout="@layout/fragment_mesage_detail" >
+        <action
+            android:id="@+id/action_mesageDetailFragment_to_messageListFragment"
+            app:popUpTo="@+id/messageListFragment"
+            app:destination="@id/messageListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

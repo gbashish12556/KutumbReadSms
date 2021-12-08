@@ -14,29 +14,34 @@ class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
     }
 
     fun createSectionData(): List<SectionData> {
-        if (cursor!!.moveToFirst()) {
-            val cursorCount = cursor!!.count
-            for (i in 0..cursorCount-1) {
+        try {
+            if (cursor!!.moveToFirst()) {
+                val cursorCount = cursor!!.count
+                for (i in 0..cursorCount - 1) {
 
-                var messageDate: String = cursor!!.getString(cursor.getColumnIndexOrThrow("date"))
-                var timestamp = messageDate.toLong()
-                val date = Date()
-                val timeNow: Long = date.getTime()
-                var timeStampDifference: Long = (timeNow - timestamp)/(60*60*1000)
-                if(!sectionData[Util.getIndex(timeStampDifference)].hasData) {
-                    sectionData[Util.getIndex(timeStampDifference)].hasData = true
-                }
-                sectionData[Util.getIndex(timeStampDifference)].data.add(
-                    SmsData(
-                        id = cursor.getString(cursor.getColumnIndexOrThrow("_id")).toInt(),
-                        sender = cursor.getString(cursor.getColumnIndexOrThrow("address")),
-                        message = cursor.getString(cursor.getColumnIndexOrThrow("body"))
+                    var messageDate: String =
+                        cursor!!.getString(cursor.getColumnIndexOrThrow("date"))
+                    var timestamp = messageDate.toLong()
+                    val date = Date()
+                    val timeNow: Long = date.getTime()
+                    var timeStampDifference: Long = (timeNow - timestamp) / (60 * 60 * 1000)
+                    if (!sectionData[Util.getIndex(timeStampDifference)].hasData) {
+                        sectionData[Util.getIndex(timeStampDifference)].hasData = true
+                    }
+                    sectionData[Util.getIndex(timeStampDifference)].data.add(
+                        SmsData(
+                            id = cursor.getString(cursor.getColumnIndexOrThrow("_id")).toInt(),
+                            sender = cursor.getString(cursor.getColumnIndexOrThrow("address")),
+                            message = cursor.getString(cursor.getColumnIndexOrThrow("body"))
+                        )
                     )
-                )
-                cursor.moveToNext()
+                    cursor.moveToNext()
+                }
             }
+            return getFilteredList(sectionData);
+        }catch (e:Exception){
+            return emptyList()
         }
-        return getFilteredList(sectionData);
     }
 
     fun getFilteredList(sectionData:List<SectionData>):List<SectionData>{

@@ -9,7 +9,7 @@ data class SectionData(
     @PrimaryKey
     val id: Int,
     val sectionName: String?,
-    var hasData: Boolean,
+    var hasData:Boolean,
     @TypeConverters(SmsDataConverter::class)
     val data: MutableList<SmsData>
 
