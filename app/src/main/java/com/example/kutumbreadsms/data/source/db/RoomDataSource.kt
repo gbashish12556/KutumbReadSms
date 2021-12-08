@@ -1,5 +1,6 @@
 package com.example.kutumbreadsms.data.source.db
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.kutumbreadsms.data.SectionData
 import com.example.navigithubpr.data.source.SmsLocalDataSource
@@ -20,7 +21,7 @@ class RoomDataSource internal constructor(
         smsDao.deleteSms()
     }
 
-    override suspend fun insertSms(smsList: List<SectionData>) = withContext(ioDispatcher){
+    override suspend fun insertAllSms(smsList: List<SectionData>) = withContext(ioDispatcher){
         smsDao.insertAll(smsList)
     }
 

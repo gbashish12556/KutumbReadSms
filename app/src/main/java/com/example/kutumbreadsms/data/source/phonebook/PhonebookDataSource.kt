@@ -1,7 +1,6 @@
 package com.example.kutumbreadsms.data.source.phonebook
 
 import android.database.Cursor
-import android.util.Log
 import com.example.kutumbreadsms.data.SectionData
 import com.example.kutumbreadsms.data.SmsData
 import com.example.kutumbreadsms.data.source.SmsRemoteDataSource
@@ -24,8 +23,9 @@ class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
                 val date = Date()
                 val timeNow: Long = date.getTime()
                 var timeStampDifference: Long = (timeNow - timestamp)/(60*60*1000)
-//                Log.d("SectionData1",timeStampDifference.toString())
-//                Log.d("SectionData2",Util.getIndex(timeStampDifference).toString())
+                if(!sectionData[Util.getIndex(timeStampDifference)].hasData) {
+                    sectionData[Util.getIndex(timeStampDifference)].hasData = true
+                }
                 sectionData[Util.getIndex(timeStampDifference)].data.add(
                     SmsData(
                         id = cursor.getString(cursor.getColumnIndexOrThrow("_id")).toInt(),
@@ -36,9 +36,18 @@ class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
                 cursor.moveToNext()
             }
         }
-        Log.d("SectionData",sectionData[4].data.size.toString())
-        Log.d("SectionData", sectionData[4].sectionName.toString())
-        return sectionData;
+        return getFilteredList(sectionData);
+    }
+
+    fun getFilteredList(sectionData:List<SectionData>):List<SectionData>{
+        var listSize = sectionData.size
+        var newList = mutableListOf<SectionData>()
+        for(i in 0..listSize-1){
+            if(sectionData[i].hasData){
+                newList.add(sectionData[i])
+            }
+        }
+        return newList;
     }
 
 }

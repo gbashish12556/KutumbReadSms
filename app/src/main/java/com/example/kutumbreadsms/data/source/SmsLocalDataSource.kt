@@ -7,5 +7,5 @@ import com.example.kutumbreadsms.data.SectionData
 interface SmsLocalDataSource {
     fun getSms(): LiveData<List<SectionData>>
     suspend fun deleteAllSms()
-    suspend fun insertSms(smsList:List<SectionData>)
+    suspend fun insertAllSms(smsList:List<SectionData>)
 }
