@@ -31,6 +31,26 @@ android {
     dataBinding {
         enabled = true
     }
+
+    buildTypes{
+
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            ndk {
+                abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+            }
+        }
+    }
 }
 
 dependencies {
