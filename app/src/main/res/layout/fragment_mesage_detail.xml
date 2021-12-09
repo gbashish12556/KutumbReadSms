@@ -37,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="100dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -45,10 +45,12 @@
             android:id="@+id/sender"
             app:layout_constraintStart_toEndOf="@id/senderTitle"
             app:layout_constraintTop_toTopOf="@id/senderTitle"
-            app:layout_constraintBottom_toBottomOf="@id/senderTitle"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="left"
+            app:layout_constraintEnd_toEndOf="parent"
             android:text="@{viewmodel.smsData.sender}"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -59,7 +61,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/senderTitle"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -67,10 +69,12 @@
             android:id="@+id/msessage"
             app:layout_constraintStart_toEndOf="@id/msessageTitle"
             app:layout_constraintTop_toTopOf="@id/msessageTitle"
-            app:layout_constraintBottom_toBottomOf="@id/msessageTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
+            android:gravity="left"
             android:text="@{viewmodel.smsData.message}"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
