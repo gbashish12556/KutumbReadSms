@@ -14,6 +14,7 @@ class Util {
             hashMap.put(4, "6 Hour Ago")
             hashMap.put(5, "12 Hour Ago")
             hashMap.put(6, "1 Day Ago")
+
             return hashMap
         }
 

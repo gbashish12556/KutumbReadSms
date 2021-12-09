@@ -1,26 +1,19 @@
 package com.example.kutumbreadsms
 
 
-import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.Intent
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.icu.util.BuddhistCalendar
-import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.telephony.SmsMessage
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.kutumbreadsms.data.SmsData
 import com.example.kutumbreadsms.ui.MainActivity
-import java.util.*
 
 
 class SMSBroadcastReceiver : BroadcastReceiver() {

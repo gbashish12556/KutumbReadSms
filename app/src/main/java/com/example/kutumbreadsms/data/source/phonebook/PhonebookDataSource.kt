@@ -1,14 +1,16 @@
 package com.example.kutumbreadsms.data.source.phonebook
 
 import android.database.Cursor
+import android.net.Uri
 import android.util.Log
+import com.example.kutumbreadsms.SmsApplication
 import com.example.kutumbreadsms.data.SectionData
 import com.example.kutumbreadsms.data.SmsData
 import com.example.kutumbreadsms.data.source.SmsRemoteDataSource
 import com.example.kutumbreadsms.util.Util
 import java.util.*
 
-class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
+class PhonebookDataSource(val smsApplication: SmsApplication):SmsRemoteDataSource {
     override suspend fun getSms(): List<SectionData> {
         return createSectionData()
     }
@@ -16,6 +18,8 @@ class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
     fun createSectionData(): List<SectionData> {
         try {
             val sectionData :MutableList<SectionData> = Util.intialiseSectionData()
+            var smsUri:Uri = Uri.parse("content://sms/inbox")
+            val cursor: Cursor? = smsApplication.getContentResolver().query(smsUri, null, null, null, null)
             if (cursor!!.moveToFirst()) {
                 val cursorCount = cursor!!.count
                 for (i in 0..cursorCount - 1) {
@@ -29,7 +33,6 @@ class PhonebookDataSource(val cursor: Cursor?):SmsRemoteDataSource {
                     if (!sectionData[Util.getIndex(timeStampDifference)].hasData) {
                         sectionData[Util.getIndex(timeStampDifference)].hasData = true
                     }
-                    Log.d("message: ",cursor.getString(cursor.getColumnIndexOrThrow("body")))
                     sectionData[Util.getIndex(timeStampDifference)].data.add(
                         SmsData(
                             id = cursor.getString(cursor.getColumnIndexOrThrow("_id")).toInt(),

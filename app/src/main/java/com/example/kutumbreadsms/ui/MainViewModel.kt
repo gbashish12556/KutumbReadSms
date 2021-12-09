@@ -45,7 +45,6 @@ class MainViewModel(
 
     private val _items: LiveData<List<SectionData>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
-            Log.d("SectionData","2")
             _dataLoading.value = true
             viewModelScope.launch {
                 smsRepository.refreshTask()
@@ -66,7 +65,6 @@ class MainViewModel(
     }
 
     fun refreshList(){
-         Log.d("SectionData","1")
         _forceUpdate.value  = true
     }
 
@@ -75,7 +73,6 @@ class MainViewModel(
     }
 
     fun goToDetailFrag(smsData: SmsData?){
-        Log.d("smsData1",smsData.toString())
         _smsData.value = smsData
     }
 

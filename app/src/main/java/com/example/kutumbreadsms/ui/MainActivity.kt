@@ -41,7 +41,7 @@ import com.example.kutumbreadsms.util.getViewModelFactory
 /**
  * Main activity for the todoapp. Holds the Navigation Host Fragment and the Drawer, Toolbar, etc.
  */
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
 
 
     private val MY_PERMISSIONS_REQUEST_READ_SMS  =10
@@ -55,8 +55,8 @@ class MainActivity : FragmentActivity() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
-        viewModel.refreshList()
-        if(intent != null && intent.extras != null){
+        refreshList()
+        if(intent != null && intent.extras != null && intent.extras!!.getSerializable("smsData") != null){
             var smsData:SmsData = intent.extras!!.getSerializable("smsData") as SmsData
             viewModel.setSmsData(smsData)
             navController.navigate(R.id.action_messageListFragment_to_mesageDetailFragment  )

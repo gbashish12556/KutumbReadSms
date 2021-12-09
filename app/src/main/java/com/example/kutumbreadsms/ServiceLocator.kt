@@ -36,8 +36,7 @@ object ServiceLocator {
     }
 
     private fun createPrRemoteDataSource(smsApplication: SmsApplication): SmsRemoteDataSource {
-        val cursor = PhoneBookService.create(smsApplication)
-        return PhonebookDataSource(cursor)
+        return PhonebookDataSource(smsApplication)
     }
 
     private fun createLocalDataSource(smsApplication: SmsApplication): SmsLocalDataSource {
